@@ -20,21 +20,29 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.fleetrack.unicon_ticket_app"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("${rootProject.projectDir}/keystore")
+            storePassword = "password"
+            keyAlias = "key0"
+            keyPassword = "password"
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
+            // Deshabilitado temporalmente para build rápido
+            // Puede habilitarse más adelante para reducir tamaño
+            isMinifyEnabled = false
+            isShrinkResources = false
         }
     }
 }
